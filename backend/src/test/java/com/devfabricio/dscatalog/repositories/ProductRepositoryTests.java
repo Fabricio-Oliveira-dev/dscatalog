@@ -49,7 +49,7 @@ public class ProductRepositoryTests {
     }
 
     @Test
-    public void findByIdShouldReturnEmptyProductWhenIdDoesntExist() {
+    public void findByIdShouldReturnEmptyProductWhenIdDoesNotExist() {
 
         Optional<Product> result = repository.findById(nonExistingId);
 
