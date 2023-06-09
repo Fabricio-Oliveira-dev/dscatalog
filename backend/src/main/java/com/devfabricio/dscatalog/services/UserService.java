@@ -2,7 +2,7 @@ package com.devfabricio.dscatalog.services;
 
 import com.devfabricio.dscatalog.dtos.RoleDTO;
 import com.devfabricio.dscatalog.dtos.UserDTO;
-import com.devfabricio.dscatalog.dtos.UserInsertDto;
+import com.devfabricio.dscatalog.dtos.UserInsertDTO;
 import com.devfabricio.dscatalog.entities.Role;
 import com.devfabricio.dscatalog.entities.User;
 import com.devfabricio.dscatalog.repositories.RoleRepository;
@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO insert(UserInsertDto dto) {
+    public UserDTO insert(UserInsertDTO dto) {
         User entity = new User();
         dtoToEntity(dto, entity);
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));

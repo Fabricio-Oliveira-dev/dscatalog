@@ -1,7 +1,7 @@
 package com.devfabricio.dscatalog.resources;
 
 import com.devfabricio.dscatalog.dtos.UserDTO;
-import com.devfabricio.dscatalog.dtos.UserInsertDto;
+import com.devfabricio.dscatalog.dtos.UserInsertDTO;
 import com.devfabricio.dscatalog.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDto dto) {
+    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
         UserDTO newDto = userService.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
