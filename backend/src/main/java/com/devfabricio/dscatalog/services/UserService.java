@@ -3,6 +3,7 @@ package com.devfabricio.dscatalog.services;
 import com.devfabricio.dscatalog.dtos.RoleDTO;
 import com.devfabricio.dscatalog.dtos.UserDTO;
 import com.devfabricio.dscatalog.dtos.UserInsertDTO;
+import com.devfabricio.dscatalog.dtos.UserUpdateDTO;
 import com.devfabricio.dscatalog.entities.Role;
 import com.devfabricio.dscatalog.entities.User;
 import com.devfabricio.dscatalog.repositories.RoleRepository;
@@ -53,7 +54,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO update(Long id, UserDTO dto) {
+    public UserDTO update(Long id, UserUpdateDTO dto) {
         try {
             User entity = userRepository.getReferenceById(id);
             dtoToEntity(dto, entity);
