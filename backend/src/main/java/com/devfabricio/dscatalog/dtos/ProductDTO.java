@@ -2,6 +2,11 @@ package com.devfabricio.dscatalog.dtos;
 
 import com.devfabricio.dscatalog.entities.Category;
 import com.devfabricio.dscatalog.entities.Product;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,10 +16,18 @@ import java.util.Set;
 public class ProductDTO {
 
     private Long id;
+
+    @NotBlank(message = "Mandatory field")
+    @Size(min = 5, max = 60, message = "Should be between 5 and 60 characters")
     private String name;
     private String description;
+
+    @Positive(message = "Price should be positive")
     private Double price;
     private String imgUrl;
+
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @PastOrPresent(message = "Product data cannot be from the future")
     private Instant date;
 
     private List<CategoryDTO> categories = new ArrayList<>();
