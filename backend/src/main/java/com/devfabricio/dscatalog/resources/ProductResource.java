@@ -24,10 +24,10 @@ public class ProductResource {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductProjection>> findAll(@RequestParam(value = "name", defaultValue = "") String name,
+    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(value = "name", defaultValue = "") String name,
                                                            @RequestParam(value = "categoryId", defaultValue = "0") String categoryId,
                                                            Pageable pageable) {
-        Page<ProductProjection> list = productService.findAllPaged(name, categoryId, pageable);
+        Page<ProductDTO> list = productService.findAllPaged(name, categoryId, pageable);
         return ResponseEntity.ok(list);
     }
 
