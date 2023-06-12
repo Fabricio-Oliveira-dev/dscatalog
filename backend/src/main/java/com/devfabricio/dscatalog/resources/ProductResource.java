@@ -1,6 +1,7 @@
 package com.devfabricio.dscatalog.resources;
 
 import com.devfabricio.dscatalog.dtos.ProductDTO;
+import com.devfabricio.dscatalog.projections.ProductProjection;
 import com.devfabricio.dscatalog.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,26 @@ import java.net.URI;
 public class ProductResource {
 
     @Autowired
-    private ProductService ProductService;
+    private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        Page<ProductDTO> list = ProductService.findAllPaged(pageable);
+    public ResponseEntity<Page<ProductProjection>> findAll(@RequestParam(value = "name", defaultValue = "") String name,
+                                                           @RequestParam(value = "categoryId", defaultValue = "0") String categoryId,
+                                                           Pageable pageable) {
+        Page<ProductProjection> list = productService.findAllPaged(name, categoryId, pageable);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-        ProductDTO dto = ProductService.findById(id);
+        ProductDTO dto = productService.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PostMapping
     public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
-        dto = ProductService.insert(dto);
+        dto = productService.insert(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -48,14 +51,14 @@ public class ProductResource {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
-        dto = ProductService.update(id, dto);
+        dto = productService.update(id, dto);
         return ResponseEntity.ok(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        ProductService.delete(id);
+        productService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
