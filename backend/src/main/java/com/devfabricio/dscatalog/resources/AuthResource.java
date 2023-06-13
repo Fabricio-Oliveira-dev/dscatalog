@@ -1,9 +1,6 @@
 package com.devfabricio.dscatalog.resources;
 
-import com.devfabricio.dscatalog.dtos.EmailDTO;
-import com.devfabricio.dscatalog.dtos.UserDTO;
-import com.devfabricio.dscatalog.dtos.UserInsertDTO;
-import com.devfabricio.dscatalog.dtos.UserUpdateDTO;
+import com.devfabricio.dscatalog.dtos.*;
 import com.devfabricio.dscatalog.services.AuthService;
 import com.devfabricio.dscatalog.services.UserService;
 import jakarta.validation.Valid;
@@ -27,6 +24,12 @@ public class AuthResource {
     @PostMapping(value = "/recover-token")
     public ResponseEntity<Void> createRoverToken(@Valid @RequestBody EmailDTO body) {
         authService.createRoverToken(body);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/new-password")
+    public ResponseEntity<Void> saveNewPassword(@Valid @RequestBody NewPasswordDTO body) {
+        authService.saveNewPassword(body);
         return ResponseEntity.noContent().build();
     }
 }
